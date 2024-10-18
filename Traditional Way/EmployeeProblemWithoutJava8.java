@@ -14,6 +14,37 @@
  * Note Id : Take id as a string i.e "101" and return into asceding oder by converting into integer
  * 
  * create getter setter parameterised Constructor with super()
+ * 
+ * 
+ * 101
+suhas
+mca
+23
+52000.0
+102
+shiva
+mca
+25
+51000.00
+103
+pratik
+mca
+24
+25000.0
+104
+banty
+BE
+21
+27000.00
+101
+mca
+
+104
+sneha
+mca-ai
+22
+53000.00
+
  */
 
 import java.util.ArrayList;
