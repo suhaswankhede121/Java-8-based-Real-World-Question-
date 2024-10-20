@@ -1,5 +1,5 @@
 
-
+//java hands on problem
 class Point{
     double x,y;
 
