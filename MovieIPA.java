@@ -47,6 +47,8 @@ High Budget Movie
 
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 class Moviee{
@@ -101,7 +103,8 @@ class Moviee{
 
 public class MovieIPA {
     
-    public static Moviee getMovieByGenre(Moviee[] moviees,String gen){
+    public static Moviee[] getMovieByGenre(Moviee[] moviees,String gen){
+        List<Moviee> list=new ArrayList<>();
         for(Moviee m:moviees){
             if(m.getGen().equalsIgnoreCase(gen)){
                 if(m.getBudget()>80000000){
@@ -109,10 +112,13 @@ public class MovieIPA {
                 }else{
                     m.setMessage("Low Budget Movie");
                 }
-                return m;
+                list.add(m);
             }
         }
+       if (list.isEmpty()) {
         return null;
+       }
+       return list.toArray(new Moviee[0]);
     }
 
     public static void main(String[] args) {
@@ -127,9 +133,12 @@ public class MovieIPA {
             moviee[i]=new Moviee(name, com, gen, bud);
         }
         String gen=sc.nextLine();
-        Moviee r1=getMovieByGenre(moviee, gen);
-        if(r1!=null){
-            System.out.println(r1.getMessage());
+        Moviee []r1=getMovieByGenre(moviee, gen);
+       if(r1!=null){
+            //System.out.println(r1.getMessage());
+            for(Moviee m:r1){
+                System.out.println(m.getMessage());
+            }
         }else{
             System.out.println("No such movies");
         }
