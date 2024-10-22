@@ -121,6 +121,35 @@ public class MovieIPA {
        return list.toArray(new Moviee[0]);
     }
 
+    public static Moviee[] getMovieByGenre1(Moviee[] moviees,String gen){
+        Moviee [] arr=null;
+        int count=0;
+        for(int i=0;i<moviees.length;i++){
+            if(moviees[i].getGen().equalsIgnoreCase(gen)){
+                if(moviees[i].getBudget()>80000000){
+                    moviees[i].setMessage("High Budget Movie");
+                }else{
+                    moviees[i].setMessage("Low Budget Movie");
+                }
+                count++;
+            }
+        }
+       arr=new Moviee[count];
+       int j=0;
+       for(int i=0;i<moviees.length;i++){
+        if (moviees[i].getGen().equalsIgnoreCase(gen)) {
+            if(moviees[i].getBudget()>80000000){
+                moviees[i].setMessage("High Budget Movie");
+            }else{
+                moviees[i].setMessage("Low Budget Movie");
+            }
+            arr[j++]=moviees[i];
+        }
+       }
+       return arr;
+
+    }
+
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);
         Moviee [] moviee=new Moviee[4];
@@ -133,7 +162,7 @@ public class MovieIPA {
             moviee[i]=new Moviee(name, com, gen, bud);
         }
         String gen=sc.nextLine();
-        Moviee []r1=getMovieByGenre(moviee, gen);
+        Moviee []r1=getMovieByGenre1(moviee, gen);
        if(r1!=null){
             //System.out.println(r1.getMessage());
             for(Moviee m:r1){
