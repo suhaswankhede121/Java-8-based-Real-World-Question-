@@ -1,64 +1,65 @@
 /*
- * Create a class BankAccount with the following attributes:
+ * Create a class called BankAccount with the following attributes:
 
-accountNumber - int
-accountHolderName - String
-balance - double
+accountNumber (String)
+accountHolderName (String)
+balance (double)
+Write getters, setters, and a parameterized constructor for the class.
 
-Write getters, setters and parameterized constructor in the above mentioned attribute sequence as required.
+Create a static method transferFunds in a separate class called BankUtils. The method should take four parameters:
 
-Create a class Solution with the main method.
+fromAccount (BankAccount)
+toAccount (BankAccount)
+amount (double)
+transactionCode (String)
+The method should transfer the specified amount from the fromAccount to the toAccount,
+and return a Transaction object containing the transactionCode, the amount 
+transferred, and the timestamp of the transaction. If the fromAccount has insufficient
+balance, the method should throw an InsufficientBalanceException with an appropriate error message.
 
-Implement two static methods - withdraw and deposit in Solution class.
+Create a class called Transaction with the following attributes:
 
-withdraw method:
-------------------------------------------
-This method will take two input parameters - array of BankAccount objects and the account number (int) from which withdrawal 
-should be done.
-The method will check if the account number is present in the array of BankAccount objects.
-If present, the method will then check if the balance is sufficient to withdraw the requested amount (double). If yes, it will 
-deduct the amount from the account balance and return the updated balance.
-If the account number is not present or the balance is not sufficient, the method should return -1.
+transactionCode (String)
+amount (double)
+timestamp (String)
+Write getters and a parameterized constructor for the class.
 
-deposit method:
---------------------------------------------
-This method will take two input parameters - array of BankAccount objects and the account number (int) in which deposit should 
-be done.
-The method will check if the account number is present in the array of BankAccount objects.
-If present, it will add the deposit amount (double) to the account balance and return the updated balance.
-If the account number is not present, the method should return -1.
+Create an InsufficientBalanceException class that extends the Exception class. 
+The exception should have a constructor that takes a message as a parameter.
 
-These above mentioned static methods should be called from the main method.
+In the main method, create two BankAccount objects, transfer some funds between 
+them using the transferFunds method, and print the transaction details to the console. Handle any exceptions.
 
-For withdraw method - The main method should print the updated balance if the returned value is greater than or equal to 0, or 
-it should print "Sorry - Insufficient balance" if the returned value is -1, or it should print "Sorry - Account not found" if 
-the returned value is -2.
+Sample Input:
 
-For deposit method - The main method should print the updated balance if the returned value is greater than or equal to 0, or 
-it should print "Sorry - Account not found" if the returned value is -1.
+Account 1:
+Account Number: 12345
+Account Holder Name: John
+Balance: 5000.0
 
-Before calling these static methods in main, a parameterized constructor in the above mentioned attribute sequence as required.
+Account 2:
+Account Number: 67890
+Account Holder Name: Jane
+Balance: 10000.0
 
-Input
-------------------------
-1001
-Alice
-5000.0
-1002
-Bob
-10000.0
-1003
-Charlie
-15000.0
-1002
-5000.0
-1001
-10000.0
+Transfer Details:
+Amount: 2000.0
+Transaction Code: T0001
 
-Output
----------------------------
-5000.0
-15000.0
+Sample Output:
+
+Before Transfer:
+Account 1: John - 12345 - 5000.0
+Account 2: Jane - 67890 - 10000.0
+
+After Transfer:
+Account 1: John - 12345 - 3000.0
+Account 2: Jane - 67890 - 12000.0
+
+Transaction Details:
+Transaction Code: T0001
+Amount Transferred: 2000.0
+Timestamp: 2023-04-01 10:30:00
  */
 
 
