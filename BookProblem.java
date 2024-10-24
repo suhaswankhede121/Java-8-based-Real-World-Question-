@@ -22,6 +22,7 @@ findBookWithMaximumPrice :
 Create a static method findBookWithMaximumPrice in the Solution class. This method will take array of Book objects and 
 returns the Book object having the maximum Price if found else return null if not found.
 
+Note: return array of object instead single object
 searchBookByTitle :
 =============================
 Create a static method searchBookByTitle in the Solution class. This method will take array of Book objects and Title as 
@@ -135,15 +136,18 @@ class Book{
 
 
 public class BookProblem {
-    public static Book findBookWithMaximumPrice(Book []books){
+    public static Book[] findBookWithMaximumPrice(Book []books){
         List<Book> list=new ArrayList<>();
+        double max=Integer.MIN_VALUE;
         for(Book b:books){
-            list.add(b);
+            if(b.getPrice()>=max){
+                max=b.getPrice();
+                list.add(b);
+            }
         }
         if(list.isEmpty()) return null;
+       return  list.toArray(new Book[0]);
         
-        list.sort((p1,p2)->Double.compare(p2.getPrice(), p1.getPrice()));
-        return list.get(0);
     }
 
     public static Book searchBookByTitle(Book []books,String t){
@@ -171,9 +175,12 @@ public class BookProblem {
         }
         String t=sc.nextLine();
         
-        Book r1=findBookWithMaximumPrice(book);
+        Book []r1=findBookWithMaximumPrice(book);
         if(r1!=null){
-            System.out.println(r1.getId()+" "+r1.getTitle());
+            for(Book b:r1){
+
+                System.out.println(b.getId()+" "+b.getTitle());
+            }
           
         }else{
             System.out.println("No Book found with mentioned attribute");
