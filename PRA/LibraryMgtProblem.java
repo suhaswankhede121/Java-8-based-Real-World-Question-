@@ -186,16 +186,16 @@ public class LibraryMgtProblem {
         String authorName = sc.nextLine();
         int bId = sc.nextInt();
 
-        List<String> booksByAuthor = Genre.getBooksByAuthor(gList, genreId, authorName);
-        if (booksByAuthor != null) {
-            for (String title : booksByAuthor) {
+        List<String> r1 = Genre.getBooksByAuthor(gList, genreId, authorName);
+        if (r1 != null) {
+            for (String title : r1) {
                 System.out.println(title);
             }
         }
 
-        List<String> genresByBookId = Genre.getGenresByBookId(gList, bId);
-        if (genresByBookId != null) {
-            for (String genreName : genresByBookId) {
+        List<String> r2 = Genre.getGenresByBookId(gList, bId);
+        if (r2 != null) {
+            for (String genreName : r2) {
                 System.out.println(genreName);
             }
         }
