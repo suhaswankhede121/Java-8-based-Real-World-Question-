@@ -1,7 +1,7 @@
 /*
- * 
  * Question 3: Library Management System with Genre
-Design a system to manage records of books and genres in a library. The system should involve two classes: Genre and Book. A genre can have multiple books. Your task is to implement a solution that will maintain a list of Book objects within the Genre class and perform specific operations.
+Design a system to manage records of books and genres in a library. The system should involve two classes: Genre and Book. 
+A genre can have multiple books. Your task is to implement a solution that will maintain a list of Book objects within the Genre class and perform specific operations.
 
 Class Genre:
 Attributes:
@@ -15,13 +15,24 @@ Attributes:
 bookId (int)
 title (String)
 authorName (String)
+
 Methods in Genre Class:
+
 getBooksByAuthor()
+This method retrieves and returns a list of book titles written by a specific author within a genre, sorted alphabetically. 
+It takes three arguments: a list of genre objects, genreId, and the authorName. If no genre is found, print "Genre Not Found".
+ If no books are found by the author, print "No Books Found".
 
-This method retrieves and returns a list of book titles written by a specific author within a genre, sorted alphabetically. It takes three arguments: a list of genre objects, genreId, and the authorName. If no genre is found, print "Genre Not Found". If no books are found by the author, print "No Books Found".
+
+
+
+
 getGenresByBookId()
+This method finds all genres that contain a specific book ID and returns a list of genre names.
+ It takes two arguments: a list of genre objects and the bookId. If no genres are found containing the book, print "No Genres Found".
 
-This method finds all genres that contain a specific book ID and returns a list of genre names. It takes two arguments: a list of genre objects and the bookId. If no genres are found containing the book, print "No Genres Found".
+
+
 Sample Input 1:
 2
 101
@@ -62,53 +73,36 @@ Dune
 Frank Herbert
 507
 nill
-00
+0
 
 Sample Output 2:
 Genre Not Found
 No Genres Found
-*/
+ */
 
 
-import java.util.*;
 
-class Book1 {
-    private int bid;
-    private String title;
-    private String authorName;
 
-    public Book1(int bid, String title, String authorName) {
-        this.bid = bid;
-        this.title = title;
-        this.authorName = authorName;
-    }
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
-    public int getBid() {
-        return bid;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthorName() {
-        return authorName;
-    }
-}
-
-class Genre {
+class Genre{
     private int genreId;
     private String genreName;
-    private Map<Integer, Book1> books;
+    Map<Integer,Book> books;
 
     public Genre(int genreId, String genreName) {
         this.genreId = genreId;
         this.genreName = genreName;
-        this.books = new HashMap<>();
+        this.books=new HashMap<>();
     }
 
-    public void addBook(Book1 book1) {
-        books.put(book1.getBid(), book1);
+    public void addBook(Book book){
+        books.put(book.getBookId(),book);
     }
 
     public int getGenreId() {
@@ -119,87 +113,112 @@ class Genre {
         return genreName;
     }
 
-    public static List<String> getBooksByAuthor(List<Genre> genres, int genreId, String authorName) {
-        for (Genre genre : genres) {
-            if (genre.getGenreId() == genreId) {
-                List<String> titles = new ArrayList<>();
-                for (Book1 book : genre.books.values()) {
-                    if (book.getAuthorName().equalsIgnoreCase(authorName)) {
-                        titles.add(book.getTitle());
-                    }
-                }
-                if (titles.isEmpty()) {
-                    System.out.println("No Books Found");
-                    return null;
-                }
-                Collections.sort(titles);
-                return titles;
-            }
-        }
-        System.out.println("Genre Not Found");
-        return null;
-    }
-
-    public static List<String> getGenresByBookId(List<Genre> genres, int bookId) {
-        List<String> genreNames = new ArrayList<>();
-        for (Genre genre : genres) {
-            if (genre.books.containsKey(bookId)) {
-                genreNames.add(genre.getGenreName());
-            }
-        }
-        if (genreNames.isEmpty()) {
-            System.out.println("No Genres Found");
-            return null;
-        }
-        return genreNames;
-    }
+    
+    
 }
 
-public class LibraryMgtProblem {
+class Book{
+    private int bookId;
+    private String bookTitle;
+    private String bookAuthorName;
+    public Book(int bookId, String bookTitle, String bookAuthorName) {
+        this.bookId = bookId;
+        this.bookTitle = bookTitle;
+        this.bookAuthorName = bookAuthorName;
+    }
+    public int getBookId() {
+        return bookId;
+    }
+    public String getBookTitle() {
+        return bookTitle;
+    }
+    public String getBookAuthorName() {
+        return bookAuthorName;
+    }
+
+}
+
+public class LibrarySystem {
+
+    public static List<String> getBookByAuthor(List<Genre> genres,int genreId,String bookAuthorName){
+       
+       for(Genre g:genres){
+          if(g.getGenreId()==genreId){
+            List<String> bookTitle=new ArrayList<>();
+            for(Book b:g.books.values()){
+                if(b.getBookAuthorName().equalsIgnoreCase(bookAuthorName)){
+                    bookTitle.add(b.getBookTitle());
+                }
+            }
+            if(bookTitle.isEmpty()){
+                System.out.println("No Book Found");
+                return null;
+               }
+               Collections.sort(bookTitle);
+               return bookTitle;
+          }
+       }
+       System.out.println("Genre not found");
+       return null;
+    }
+
+    public static List<String> getGenreByBookId(List<Genre> genres,int bookId){
+        List<String> list=new ArrayList<>();
+
+        for(Genre g:genres){
+            if(g.books.containsKey(bookId)){
+                list.add(g.getGenreName());
+            }
+        }
+        if(list.isEmpty()){
+            System.out.println("No Genre found");
+            return null;
+        }
+        return list;
+    }
 
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        List<Genre> gList = new ArrayList<>();
-        sc.nextLine();
-
-        for (int i = 0; i < n; i++) {
-            int gId = sc.nextInt();
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        List<Genre> genres=new ArrayList<>();
+        for(int i=0;i<n;i++){
+            int gid=sc.nextInt();
             sc.nextLine();
-            String gName = sc.nextLine();
-            Genre genre = new Genre(gId, gName);
-            int nBooks = sc.nextInt();
+            String gname=sc.nextLine();
+            Genre genre=new Genre(gid, gname);
+            int bno=sc.nextInt();
             sc.nextLine();
-
-            for (int j = 0; j < nBooks; j++) {
-                int bid = sc.nextInt();
+            for(int j=0;j<bno;j++){
+                int bid=sc.nextInt();
                 sc.nextLine();
-                String title = sc.nextLine();
-                String author = sc.nextLine();
-                genre.addBook(new Book1(bid, title, author));
+                String t=sc.nextLine();
+                String an=sc.nextLine();
+                Book book=new Book(bid, t, an);
+                genre.addBook(book);
             }
-            gList.add(genre);
+            genres.add(genre);
         }
 
-        int genreId = sc.nextInt();
+        int gid=sc.nextInt();
         sc.nextLine();
-        String authorName = sc.nextLine();
-        int bId = sc.nextInt();
+        String aname=sc.nextLine();
+        int bid=sc.nextInt();
 
-        List<String> r1 = Genre.getBooksByAuthor(gList, genreId, authorName);
-        if (r1 != null) {
-            for (String title : r1) {
-                System.out.println(title);
+        List<String> r1=getBookByAuthor(genres,gid,aname);
+        if(r1!=null){
+            for(String s:r1){
+                System.out.println(s);
             }
         }
+        
 
-        List<String> r2 = Genre.getGenresByBookId(gList, bId);
-        if (r2 != null) {
-            for (String genreName : r2) {
-                System.out.println(genreName);
+        List<String> r2=getGenreByBookId(genres,bid);
+        if(r2!=null){
+
+            for(String s:r2){
+                System.out.println(s);
             }
         }
-
-        sc.close();
+        
     }
 }
